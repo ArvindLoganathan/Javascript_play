@@ -85,7 +85,7 @@ function f1(x,y){
     console.log(this.name)
 }
 
-Bind - will only assign this to particular functiona and give a new function.To call it we need to call again.
+Bind - will only assign this to particular function and give a new function.To call it we need to call again.
 f1.bind(b)(4,5);
 
 Call - will call the function with assigned this(scope) mentioned in first argument and with other argument need for function. 
@@ -97,3 +97,46 @@ Apply - will call the function with assigned this(scope) mentioned in first argu
 f1.bind(b,[4,5]);
 
 -------------------------
+
+prototype Chaining:
+
+object.create - creates a new object with the specified ([[Prototype]] its optional).(deep copy)
+object.assign -  Object.assign assigns the properties directly on the specified object if already exist overwrite or create new property.(shallow copy)
+object.create(null) - rerturn null object wityth no __proto__
+
+eg:
+1).let a = function(b) {
+    this.b = b;
+    this.call = function(){
+        return this.b;
+    }
+};
+
+
+2)a.prototype.print = function() {   console.log(this.b); };
+
+b and call are created as property to object. evry time new object is create two propeerty will be present. so best property to add function to prototype.
+print fn will be present in __proto__ to save space i.e common space.
+
+3)let b = function(){
+    a.call(this,5); //inhert super class property
+    this.name="arvi"
+}
+
+4)b.prototype =  Object.create(a.prototype) // to inherte the superclass function.
+
+5)b.prototype.constructor =  b; // to set back the constructor of b to itslf becasue it will be removed due to setting prototype in above line.dont add above (line 4) prototype setting it will be replaced by parent class prototype.
+
+6)b.prototype.printf = function() {
+    console.log(this.b);
+}; // adding new proototype for subclass should be done after (line 4) prototype assignment as it will replace the prototype property of sub class
+
+-------------------------
+
+object literal:
+let a = { walk1(){ return "1"; }};
+let b = {  walk2(){ return "2";  }};
+
+Object.setPrototypeOf(b,a) // es5 method to copy prototype similar to above methods
+
+
