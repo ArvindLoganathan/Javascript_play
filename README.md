@@ -2,9 +2,14 @@
 
 scope:
 global - at root with var ..includes var varibale declared in blocked scope(hoisted). 
-script - let and const in root declarion(global declaration i.e not inside fun).  blocked scope and local scope can make use of it i.e available to use. class definition also will inside script.
+script - let and const in root declarion(global declaration i.e not inside fun).  blocked scope and local scope can make use of it i.e available to use. class definition also will inside script.memoery saving it is not attched to window like var at root declaration.
 block - inside block{} (let and const are introduced mainly to use inside blocked scope because picked by Garbage Collector(GC) after block executed).
-local  - scope inside function .. each function call execution will create new Execution context and put into callstack above ananoumous(Global execution context). funtion can have blocked scope variable inside it.
+local  - scope inside function(to maintain this value as window ) .. each function call execution will create new Execution context and put into callstack above ananoumous(Global execution context). funtion can have blocked scope variable inside it. it also hold var, fun and root level let and const  that are avilable inside function
+
+each function vl have block(if available when line reaches only vl be visible),local,script,global scope
+
+var at root vl added to window.
+let and const vl added to script.
 
 Important point:
 let and const has scrict scope in global declared varibale, attached to Sript Scope
@@ -35,7 +40,7 @@ Hoisting:
 
 This:
 
-1)arrow function doesnt have own this property it find this from  global object that is accessible.Inside object its undefined
+1)arrow function doesnt have own this property it find this from  global object that is accessible.Inside object its undefined i.e point to window 
 2).normal fucntion in global will have window inside object will have object as this.
 
 
@@ -137,6 +142,6 @@ object literal:
 let a = { walk1(){ return "1"; }};
 let b = {  walk2(){ return "2";  }};
 
-Object.setPrototypeOf(b,a) // es5 method to copy prototype similar to above methods
+Object.setPrototypeOf(b,a) // es5 method to copy prototype similar to above methods, b is object and a's prototype is assigned to b
 
 
